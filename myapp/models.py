@@ -79,7 +79,7 @@ class Payment(models.Model):
     date = models.DateTimeField(auto_now=True)
     seats = models.CharField(max_length=1000,default='')
     price = models.CharField(max_length=10,default='')
-    match_id = models.ForeignKey(Schedule_Match, on_delete = models.CASCADE)
+    match = models.ForeignKey(Schedule_Match, on_delete = models.CASCADE)
     class Meta:
         db_table = "Payment"
 class Bank(models.Model):

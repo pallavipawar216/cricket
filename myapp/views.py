@@ -4,6 +4,7 @@ from myapp.models import Teams, Team_players, Stadium, Schedule_Match,Seats,Paym
 from accounts.models import Accounts
 from datetime import datetime as dt , timezone
 import json as js
+import random
 # Create your views here.
 def home(request):
     return render(request,"home.html",{})
@@ -108,16 +109,22 @@ def payment(request):
                 seat[0].save()
         pay = Payment()
         pay.user = user
-        pay.seats = booked_seats[:-1]
+        pay.seats = booked_seats[:-2]
+        print(pay.seats)
         pay.price = amount
-        pay.match_id = match
+        pay.match = match
         pay.save()
         del request.session['selected_seats']
-    return render(request,'booked_tickets.html',{'pay':pay})
+        messages.info(request, f'Your tickets are booked successfully!')
+    return redirect(home)
 def booked_tickets(request):
     if request.method=="GET":
         email_id = request.session['email_id']
         user = Accounts.objects.get(email_id=email_id)
         pay = Payment.objects.filter(user=user)
-        return render(request,'booked_tickets.html',{'pay':pay})
+        booked_chairs = {}
+        for p in pay:
+            b = p.seats
+            booked_chairs[p.pk]=b.split(', ')
+        return render(request,'booked_tickets.html',{'pay':pay,'booked_chairs':booked_chairs})
 

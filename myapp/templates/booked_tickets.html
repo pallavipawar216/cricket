@@ -35,16 +35,15 @@
                         <rect x="22.3" y="169.7" width="666" height="6.7"/>
                         <rect x="181.6" y="18.3" width="6.6" height="155.3"/>
                     </g>
-                    <text transform="matrix(0.7554 0 0 1 212.048 72.2598)" font-family="'TimesNewRomanPSMT'" font-size="48">Match: {{pay.match_id.Team_A}} Vs {{pay.match_id.Team_B.team_name}}</text>
-                    <text x="370" y="208.6665" dominant-baseline="middle" text-anchor="middle" font-family="'TimesNewRomanPSMT'" font-size="24">Match {{pay.match.Team_A}} Vs {{pay.match_Team_B}}</text>
-                    <text transform="matrix(2.1246 0 0 1 216.7152 118.6665)" font-family="'TimesNewRomanPSMT'" font-size="18">'hvgyugeu' &amp; 'hvgyugeu'</text>
-                    <text transform="matrix(2.1246 0 0 1 215.7754 154.6668)" font-family="'TimesNewRomanPSMT'" font-size="18">Price &#8377;'hvgyugeu'</text>
-                    <text x="370.474" y="242.8605" dominant-baseline="middle" text-anchor="middle" font-family="'SimSun-ExtB'" font-size="28">'hvgyugeu'</text>
-                    <text x ="370.1374" y="279.3333" dominant-baseline="middle" text-anchor="middle" font-family="'TimesNewRomanPSMT'" font-size="21">Ticket No. 'hvgyugeu'</text>
+                    <text transform="matrix(0.7554 0 0 1 212.048 72.2598)" font-family="'TimesNewRomanPSMT'" font-size="24">Match: {{x.match.Team_A}} Vs {{x.match.Team_B.team_name}}</text>
+                    <text transform="matrix(2.1246 0 0 1 216.7152 118.6665)" font-family="'TimesNewRomanPSMT'" font-size="16">Stadium : {{x.match.stadium}}</text>
+                    <text transform="matrix(2.1246 0 0 1 215.7754 154.6668)" font-family="'TimesNewRomanPSMT'" font-size="14">Date : {{x.match.date}} Time : {{x.match.time}}</text>
+                    <text x="370" y="208.6665" dominant-baseline="middle" text-anchor="middle" font-family="'TimesNewRomanPSMT'" font-size="20">Seats : Bay - {{x.seats.0}}, Level - {{x.seats.1}}, Chair No: {% for key,value in booked_chairs.items %} {% if x.pk == key %} {% for idx in value %} {{idx|slice:"2:"}} {% endfor %} {% endif %} {% endfor %} </text>
+                    <text x="370.474" y="242.8605" dominant-baseline="middle" text-anchor="middle" font-family="'SimSun-ExtB'" font-size="28">&#8377; {{x.price}}</text>
+                    <text x ="370.1374" y="279.3333" dominant-baseline="middle" text-anchor="middle" font-family="'TimesNewRomanPSMT'" font-size="21">Ticket No : {{x.pk}}</text>
                </svg>
             </div>
             <button class="btn-success" onclick="window.print();">Print</button>
-
             {% endfor %}
         </div>
 </div>
