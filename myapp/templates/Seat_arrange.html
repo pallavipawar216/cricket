@@ -1,0 +1,213 @@
+{%extends "home.html"%}
+{%block content%}
+{%load static%}
+<div class="jumbotron img-fluid" id="cover">
+    <h3>{{match_book.Team_A}} Vs {{match_book.Team_B}}</h3>
+    <p>Stadium : {{match_book.stadium}}</p>
+    <p><strong>Date : {{match_book.date}} | Time : {{match_book.time}}</strong></p>
+    <p><strong>BAY :</strong> {{bay}} </p>
+    <div class="container text-black">
+    <div style = "display: flex;justify-content:center ; border: 2px solid rgba(222,198,0,1); padding : 10px auto; border-radius: 10px; background-color: rgba(222,198,0,0.61)">
+                    <div class="table-responsive-center">
+                    <table class="table-sm">
+                        <tr>
+                            <td colspan="2"><strong>Level 3 &nbsp; &nbsp; Cost:&nbsp; 250</strong></td>
+                        </tr>
+                            {% for x in data|get_item:'3' %}
+                        <tr>
+                            <td class="noseat">{{x}}</td>
+                            <td class="d-flex flex-wrap">
+                                {% for y in data|get_item:x %}
+
+                                    {% if "3"|add:x|add:y in unavilable_seats %}
+                                        <div class = "p occupied">{{y}}</div>
+                                    {% elif y == "0"%}
+                                        <div class ="p noseat"></div>
+                                    {% else %}
+                                        <a href = "javascript:;" onclick ="checkseat('3{{  x|add:y }}')"><div id = "3{{  x|add:y }}" class = "p available">{{y}}</div></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+            </div>
+    </div>
+    <hr>
+    <div class="container text-white">
+    <div style = "display: flex;justify-content:center ; border: 2px solid rgba(0,0,0,0.65); padding : 10px auto; border-radius: 10px; background-color: rgba(0,0,0,0.37)">
+                    <div class="table-responsive-center">
+                    <table class="table-sm">
+                        <tr>
+                            <td colspan="2"><strong>Level 2 &nbsp; &nbsp; Cost:&nbsp; 450</strong></td>
+                        </tr>
+                            {% for x in data|get_item:'2' %}
+                        <tr>
+                            <td class="noseat">{{x}}</td>
+                            <td class="d-flex flex-wrap">
+                                {% for y in data|get_item:x %}
+                                    {% if "2"|add:x|add:y in unavilable_seats %}
+                                        <div class = "p occupied">{{y}}</div>
+                                    {% elif y == "0"%}
+                                        <div class ="p noseat"></div>
+                                    {% else %}
+                                        <a href = "javascript:;" onclick ="checkseat('2{{  x|add:y }}')"><div id = "2{{  x|add:y }}" class = "p available">{{y}}</div></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+            </div>
+    </div>
+    <hr>
+    <div class="container text-white">
+    <div style = "display: flex;justify-content:center ; border: 2px solid rgba(71,69,222,0.46); padding : 10px auto; border-radius: 10px; background-color: rgba(23,28,222,0.43)">
+                    <div class="table-responsive-center">
+                    <table class="table-sm">
+                        <tr>
+                            <td colspan="2"><strong>Level 1 &nbsp; &nbsp; Cost:&nbsp; 550</strong></td>
+                        </tr>
+                            {% for x in data|get_item:'3' %}
+                        <tr>
+                            <td class="noseat">{{x}}</td>
+                            <td class="d-flex flex-wrap">
+                                {% for y in data|get_item:x %}
+                                    {% if "1"|add:x|add:y in unavilable_seats %}
+                                        <div class = "p occupied">{{y}}</div>
+                                    {% elif y == "0"%}
+                                        <div class ="p noseat"></div>
+                                    {% else %}
+                                        <a href = "javascript:;" onclick ="checkseat('1{{  x|add:y }}')"><div id = "1{{  x|add:y }}" class = "p available">{{y}}</div></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+            </div>
+    </div>
+        <form method = "POST">
+         {% csrf_token %}
+            <input name ="selected_seats" id ="selected_seats" type="hidden" value="">
+            <input name="match_id" id = "match_id" type="hidden" value="{{match_book.pk}}" >
+            <input name="bay" id = "bay" type="hidden" value="{{bay}}">
+            <br><center><input type = "submit" class="btn btn-warning" value="Proceed"></center>
+        </form>
+    </div>
+<style>
+    #cover{
+      background-image: url('/static/stadium.jpg');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+      vertical-align: middle;
+    }
+    .btn-group{
+        float: right;
+    }
+    .btn-primary{
+        border: 1px solid blue;
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 150px; /* Set a width if needed */
+        margin: 3px;
+    }
+     .temp-occupied,
+  .available,
+  .noseat,
+  .checking,
+  .occupied,
+  .selected{
+    text-align: center;
+    border-radius: 0.2vmax;
+    width: 2vmax;
+    height: 2vmax;
+    font-size: 1.3vmax;
+    padding:auto;
+    margin:1px;
+    }
+  .available,
+  .available:hover{
+    border-radius: 0.5vw;
+    background-color: #eee;
+    border: 0.1vw solid rgb(247, 247, 247);
+    color:green;
+  }
+  .occupied{
+    background-color: rgb(119, 119, 119);
+    color: red;
+  }
+  .selected{
+    background-color: #aef59c;
+    color: black;
+  }
+  .temp-occupied{
+    background-color: rgb(255, 102, 102);
+    color: black;
+  }
+  .checking{
+    background-color: rgb(157, 163, 255);
+    color: rgb(0, 0, 0);
+  }
+    .text-black{
+        color: black;
+    }
+</style>
+    <script type="text/javascript">
+    var selected_seat = [];
+    function checkseat(data){
+        var xmlHttp;
+        try
+        {    // Firefox, Opera 8.0+, Safari
+            xmlHttp=new XMLHttpRequest();
+        }
+        catch (e)
+        {    // Internet Explorer
+            try
+            {
+                xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            catch (e)
+            {
+                try
+                {
+                    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                catch (e)
+                {
+                    alert("Your browser does not support AJAX!");
+                    return false;
+                }
+            }
+        }
+        xmlHttp.onreadystatechange=function()
+        {
+            if(xmlHttp.readyState==4){
+                var response = xmlHttp.responseText.trim();
+                if (response == "true"){
+                    document.getElementById(data).classList.add('selected');
+                    document.getElementById(data).classList.remove('temp-occupied');
+                    selected_seat.push(data)
+                    document.getElementById('selected_seats').value = selected_seat.toString();
+                }
+                else{
+                    document.getElementById(data).classList.remove('selected');
+                    document.getElementById(data).classList.add('temp-occupied');
+                    if (selected_seat.includes(data)) {
+                        selected_seat.splice(selected_seat.indexOf(data),1);
+                        document.getElementById('selected_seats').value = selected_seat.toString();
+                    }
+                }
+            }
+      }
+    xmlHttp.open("GET",'{% url 'check_seat' %}?match_id={{ match_book.pk }}&seat_id={{ bay }}'+data ,true);
+    xmlHttp.send(null);
+    }
+    </script>
+{%endblock%}

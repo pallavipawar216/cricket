@@ -1,0 +1,47 @@
+{%extends "home.html"%}
+{%block content%}
+{%load static%}
+<div class="jumbotron img-fluid" id="cover">
+    <h3>{{match_book.Team_A}} Vs {{match_book.Team_B}}</h3>
+    <p>Stadium : {{match_book.stadium}}</p>
+    <p><strong>Date : {{match_book.date}} | Time : {{match_book.time}}</strong></p>
+<div class="btn-group">
+    <ul class="list-group">
+    {% if request.session.logged_in %}
+    <a href="{% url 'seat_query' %}?match={{ match_book.pk }}&bay=A" class="btn btn-primary">Bay A</a><br>
+    <a href="{% url 'seat_query' %}?match={{ match_book.pk }}&bay=B" class="btn btn-primary">Bay B</a><br>
+    <a href="{% url 'seat_query' %}?match={{ match_book.pk }}&bay=C" class="btn btn-primary">Bay C</a><br>
+    <a href="{% url 'seat_query' %}?match={{ match_book.pk }}&bay=D" class="btn btn-primary">Bay D</a><br>
+    <a href="{% url 'seat_query' %}?match={{ match_book.pk }}&bay=E" class="btn btn-primary">Bay E</a><br>
+    {% else %}
+    <a href="{% url 'login' %}?match={{ match_book.pk }}&bay=A" class="btn btn-primary">Bay A</a><br>
+    <a href="{% url 'login' %}?match={{ match_book.pk }}&bay=B" class="btn btn-primary">Bay B</a><br>
+    <a href="{% url 'login' %}?match={{ match_book.pk }}&bay=C" class="btn btn-primary">Bay C</a><br>
+    <a href="{% url 'login' %}?match={{ match_book.pk }}&bay=D" class="btn btn-primary">Bay D</a><br>
+    <a href="{% url 'login' %}?match={{ match_book.pk }}&bay=E" class="btn btn-primary">Bay E</a><br>
+    {% endif %}
+    </ul>
+</div>
+</div>
+<style>
+    #cover{
+      background-image: url('/static/stadium.jpg');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 1024px;
+      vertical-align: middle;
+    }
+    .btn-group{
+        float: right;
+    }
+    .btn-primary{
+        border: 1px solid blue;
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        width: 150px; /* Set a width if needed */
+        margin: 3px;
+    }
+</style> 
+{%endblock%}

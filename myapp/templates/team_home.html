@@ -1,0 +1,48 @@
+{%extends "home.html"%}
+{%block content%}
+<!--
+<table border="1">
+    <tr>
+        <th>First Name</th><th>Last Name</th>
+    </tr>
+    {%for player in players%}
+    <tr>
+        <td>{{player.player_first_name}}</td><td>{{player.player_last_name}}</td>
+    </tr>
+    {%endfor%}
+</table>-->
+<div class="jumbotron img-fluid" id="cover">
+    <div class="btn-group">
+        <ul class="list-group">
+            <h2>Squad List</h2>
+            <li class="list-group-item rounded">{{players.0.player_first_name}}<br><b>{{players.0.player_last_name}}</b>
+                <span class="badge">*C</span></li>
+            {% for player in players %}
+                {% if player.pk != players.0.pk %}
+                <li class="list-group-item rounded">{{player.player_first_name}}<br><b>{{player.player_last_name}}</b></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+    <style>
+        #cover{
+          background-image: url('/static/stadium.jpg');
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          height: 1750px;
+          vertical-align: middle;
+        }
+        .btn-group{
+            float: right;
+        }
+        .list-group-item{
+            color: black;
+            width: 300px;
+            padding: 5px;
+            height: 60px;
+        }
+    </style> 
+{%endblock%}

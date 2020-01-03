@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block content %}
+
+{% for m in match_schedule %}
+    <div class="alert alert-warning">
+        <div class="text-center">
+            <h2>Comming Soon...</h2>
+            <h3>{{m.Team_A}} Vs {{m.Team_B}}</h3>
+            <p>Stadium : {{m.stadium}}</p>
+            <p><strong>Date : {{m.date}} | Time : {{m.time}}</strong></p>
+            <p><a href="/myapp/ticketbook/{{m.id}}" class="btn btn-danger">Book Now</a></p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

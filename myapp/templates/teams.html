@@ -1,0 +1,46 @@
+{%extends "home.html"%}
+{%block content%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<form method="POST">
+<div class="container">
+<div class=" row justify-content-around">
+	
+	{% csrf_token %}
+	{% for team in teams %}
+	<div class="card card-columns">
+		<img class="card-img-top img-fluid rounded" src="{{team.image_url.url}}" alt="Card image cap" style="width: 70%; margin-left: 15%; margin-right: 15%; height: 150px;">
+		<div class="card-body" style="background-color: bisque;">
+			<center><h5 class="card-title">{{team.team_name}}</h5></center>
+            <p class="card-text" style="text-transform: capitalize;">
+                <center>Team Home</center> <br><center>{{team.home_ground}}</center>
+                <br><center><i class="fa fa-trophy"></i> {{team.cups_won}}</center>
+			</p>
+			<center><a href="/myapp/teamhome/{{team.team_name}}" class="btn btn-danger">TEAM</a></center>
+		</div>
+		<br />
+	</div>
+	{% endfor %}
+
+</div>
+</div>
+</form>
+<style>
+.card{
+	height: 450px;
+	width: 250px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.card-img-top{
+	background-position-x: center;
+	z-index: 10;
+	border-radius: 1em;
+}
+.btn{
+	position: relative;
+	object-position: center;
+}
+</style>
+{%endblock%}
